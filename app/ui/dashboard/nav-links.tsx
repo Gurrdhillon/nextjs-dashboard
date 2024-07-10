@@ -4,6 +4,8 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  FolderIcon,
+  PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -25,6 +27,14 @@ const links = [
   { name: 'Customers',
    href: '/dashboard/customers', 
    icon: UserGroupIcon 
+  },
+  { name: 'PatientPortal',
+  href: '/dashboard/patient_portal', 
+  icon: FolderIcon
+  },
+  { name: 'PatientForm',
+  href: '/dashboard/patient_form', 
+  icon: PencilSquareIcon
   },
 ];
 

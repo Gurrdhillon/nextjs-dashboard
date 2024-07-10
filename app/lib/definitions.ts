@@ -2,6 +2,46 @@
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
+
+import { z } from 'zod'
+
+export const FormDataSchema = z.object({
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  gender: z.string().min(1, 'Gender is required'),
+  dob: z.date().refine((date) => {
+    const today = new Date();
+    const minAge = new Date(today.getFullYear() - 120, today.getMonth(), today.getDate());
+    const maxAge = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    return date >= minAge && date <= maxAge;
+  }, {
+    message: 'Date of birth must be a valid date and within the last 120 years',
+  }),
+  email: z.string().min(1, 'Email is required').email('Invalid email address'),
+  contact_no: z.string().min(10, 'Contact No is required').max(10,'Maximum 10 characters allowed'),
+  country: z.string().min(1, 'Country is required'),
+  street: z.string().min(1, 'Street is required'),
+  city: z.string().min(1, 'City is required'),
+  state: z.string().min(1, 'State is required'),
+  zip: z.string().min(1, 'Zip is required'),
+})
+
+export type MedicalRecord = {
+  date: string;
+  diagnosis: string;
+  treatment: string;
+};
+
+export type PatientData = {
+  name: string;
+  age: number;
+  gender: string;
+  address: string;
+  phoneNumber: string;
+  email: string;
+  medicalHistory: MedicalRecord[];
+};
+
 export type User = {
   id: string;
   name: string;
